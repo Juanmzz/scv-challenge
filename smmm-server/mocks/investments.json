@@ -3,6 +3,7 @@
         "_id": 1,
         "name": "Coca Cola",
         "type": "stock",
+        "amount": 10,
         "quote": {
             "value": 100,
             "date": "07/07/2022"
@@ -12,6 +13,7 @@
         "_id": 2,
         "name": "A23",
         "type": "bond",
+        "amount": 2,
         "quote": {
             "value": 50,
             "date": "07/07/2022"
@@ -21,6 +23,7 @@
         "_id": 3,
         "name": "A 25",
         "type": "bond",
+        "amount": 0,
         "quote": {
             "value": 20,
             "date": "07/07/2022"
