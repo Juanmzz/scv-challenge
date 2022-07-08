@@ -1,0 +1,42 @@
+[
+    {
+        "investment": 1,
+        "value": 50,
+        "date": "2022-07-08"
+    },
+    {
+        "investment": 1,
+        "value": 40,
+        "date": "2022-07-07"
+    },
+    {
+        "investment": 2,
+        "value": 20,
+        "date": "2022-07-08"
+    },
+    {
+        "investment": 2,
+        "value": 15,
+        "date": "2022-07-07"
+    },
+    {
+        "investment": 3,
+        "value": 100,
+        "date": "2022-07-08"
+    },
+    {
+        "investment": 3,
+        "value": 80,
+        "date": "2022-07-07"
+    },
+    {
+        "investment": 4,
+        "value": 5,
+        "date": "2022-07-08"
+    },
+    {
+        "investment": 4,
+        "value": 40,
+        "date": "2022-07-07"
+    }
+]

@@ -10,7 +10,7 @@ import PaymentsIcon from "@mui/icons-material/Payments";
 import Grid from "@mui/material/Grid";
 
 //Components 
-import MyInvestments from "../../components/MyInvestments/MyInvestments"
+import Investments from "../../components/Investments/Investments"
 
 const Dashboard = () => {
   return (
@@ -31,7 +31,15 @@ const Dashboard = () => {
 
       <Grid container spacing={2}>
         <Grid item xs={4}>
-            <MyInvestments />
+          <Grid container spacing={1}>
+          <Grid item xs={12}>
+            <Investments mode="mine"/>
+          </Grid>
+          <Grid item xs={12}>
+            <Investments mode="not_mine"/>
+          </Grid>
+          </Grid>
+       
         </Grid>
         <Grid item xs={8}>
 

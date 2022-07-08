@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const quoteSchema = new Schema(
     {
       investment: {
-        type: Object.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         ref:'Investment',
         required: true,
       },
@@ -12,6 +12,10 @@ const quoteSchema = new Schema(
         type: Number,
         required: true,
       },
+      date: {
+        type: String,
+        required: true,
+      }
     },
     { timestamps: true }
   );

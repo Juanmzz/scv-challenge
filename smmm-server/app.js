@@ -1,7 +1,9 @@
  const express = require('express');
  const cors = require('cors');
  const mongoose = require('mongoose');
-
+ const errorController = require('./controllers/error');
+ const helpers = require('./helpers/initDb');
+ 
  var env = process.env.NODE_ENV || 'development';
  var config = require('./app.conf.json')[env];
 
@@ -17,7 +19,6 @@ app.use('/saving-account', savingAccountRoutes);
 
 
 // Errors  Middleware
-
 app.use((error,req,res, next) => {
     console.log(error);
     const status =  error.statusCode || 500;
@@ -28,8 +29,7 @@ app.use((error,req,res, next) => {
 
 });
 
-const errorController = require('./controllers/error');
-const res = require('express/lib/response');
+
 app.use(errorController.get404);
 
 
@@ -39,9 +39,13 @@ mongoose
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
-  .then(() => {
+  .then(async () =>  {
     console.log('Connected!');
     console.log(`Server listening on ${config.server.host}:${config.server.port}`);
+    
+    // Initialization of db data if it's empty
+    await helpers.InitDb();
+
     app.listen(config.server.port);
   })
   .catch((err) => {

@@ -1,11 +1,10 @@
-import { Typography, TableContainer, TableRow, Table, TableBody,TableHead } from "@mui/material";
-
-import React, { useState, useEffect } from "react";
-import SavingAccount from "../SavingAccount/SavingAccount";
+import { Table, TableBody, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
+import React, { useEffect, useState } from "react";
 import API from "../../helper/apiClient";
+import SavingAccount from "../SavingAccount/SavingAccount";
 
-import CssBaseline from "@mui/material/CssBaseline";
-const MyInvestments = () => {
+
+const Investments = props => {
   const [savingAccount, setSavingAccount] = useState(null);
 
   const searchSavingAccount = async () => {
@@ -14,6 +13,8 @@ const MyInvestments = () => {
       setSavingAccount(savingAccount);
     });
   };
+  const title = props.mode === 'mine' ? 'My Investments' : 'Other Investments';
+
 
   useEffect(() => {
     searchSavingAccount();
@@ -24,17 +25,19 @@ const MyInvestments = () => {
     <TableContainer  style={{marginTop: "40px" }}>
       <Table>
           <TableHead>
-          <Typography variant="h4">My Investments</Typography>
+          <Typography variant="h4">{title}</Typography>
 
           </TableHead>
         <TableBody>
+          {props.mode === 'mine' && (
           <TableRow>
             <SavingAccount savingAccount={savingAccount} />
           </TableRow>
+          )}
         </TableBody>
       </Table>
     </TableContainer>
   );
 };
 
-export default MyInvestments;
+export default Investments;
