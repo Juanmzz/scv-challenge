@@ -29,7 +29,7 @@ module.exports = {
 
         console.log("Creating data for SavingAccount......");
 
-        Investment.collection.insertOne(newSavingAccount);
+        newSavingAccount.save();
         console.log("Done!");
     }
 
@@ -43,12 +43,14 @@ module.exports = {
         for (let i = 0; i < jsonData.length; i++) {
         const quote = jsonData[i];
         const auxIndex = quote.investment;
-        quote.investment = { _id: investments[auxIndex - 1]._id };
+        quote.investment =  investments[auxIndex - 1]._id ;
+        quote.date = new Date (quote.date);
         }
 
         console.log("Creating data for Quotes......");
 
-        Quote.collection.insertMany(jsonData);
+        await Quote.collection.insertMany(jsonData);
+
         console.log("Done!");
     }
     }

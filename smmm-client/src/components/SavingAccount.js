@@ -5,7 +5,7 @@ const SavingAccount = ({savingAccount}) => {
   return (
     <>
       <TableCell>Saving Account</TableCell>
-      <TableCell> {savingAccount?.currency + savingAccount?.value } </TableCell>
+      <TableCell>  ( {savingAccount?.currency + savingAccount?.value } )</TableCell>
     </>
   );
 };

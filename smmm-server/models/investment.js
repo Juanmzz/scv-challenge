@@ -14,6 +14,10 @@ const investmentSchema = new Schema(
       quantity: {
         type: Number,
         required: true,
+      },
+      currentQuote: {
+        type: Number,
+        required: false,
       }
     },
     { timestamps: true }

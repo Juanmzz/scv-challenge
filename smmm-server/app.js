@@ -14,9 +14,10 @@
  // Routes Middleware
 const investmentRoutes = require('./routes/investment');
 const savingAccountRoutes = require('./routes/saving-account');
+const quoteRoutes = require('./routes/quote');
 app.use('/investment', investmentRoutes);
 app.use('/saving-account', savingAccountRoutes);
-
+app.use('/quote', quoteRoutes)
 
 // Errors  Middleware
 app.use((error,req,res, next) => {

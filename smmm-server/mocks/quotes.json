@@ -2,41 +2,41 @@
     {
         "investment": 1,
         "value": 50,
-        "date": "2022-07-08"
+        "date": "07-08-2022"
     },
     {
         "investment": 1,
         "value": 40,
-        "date": "2022-07-07"
+        "date": "07-07-2022"
     },
     {
         "investment": 2,
         "value": 20,
-        "date": "2022-07-08"
+        "date": "07-08-2022"
     },
     {
         "investment": 2,
         "value": 15,
-        "date": "2022-07-07"
+        "date": "07-07-2022"
     },
     {
         "investment": 3,
         "value": 100,
-        "date": "2022-07-08"
+        "date": "07-08-2022"
     },
     {
         "investment": 3,
         "value": 80,
-        "date": "2022-07-07"
+        "date": "07-07-2022"
     },
     {
         "investment": 4,
         "value": 5,
-        "date": "2022-07-08"
+        "date": "07-08-2022"
     },
     {
         "investment": 4,
         "value": 40,
-        "date": "2022-07-07"
+        "date": "07-07-2022"
     }
 ]

@@ -7,11 +7,16 @@
     {
         "name": "A23",
         "type": "bond",
-        "quantity": 5
+        "quantity": 0
     },
     {
         "name": "A 25",
         "type": "bond",
         "quantity": 20
+    },
+    {
+        "name": "Google",
+        "type": "stock",
+        "quantity": 0
     }
 ]
