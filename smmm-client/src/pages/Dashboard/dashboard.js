@@ -1,27 +1,23 @@
 import React, { Fragment, useEffect, useState } from "react";
 
-//Router
-import {Link, Route} from "wouter";
-
 //Material
-import Container from "@mui/material/Container";
-import AppBar from "@mui/material/AppBar";
-import Typography from "@mui/material/Typography";
-import Toolbar from "@mui/material/Toolbar";
-import Box from "@mui/material/Box";
+import { AppBar, Box, Container, Grid, Toolbar, Typography, Button } from "@mui/material";
 import PaymentsIcon from "@mui/icons-material/Payments";
-import Grid from "@mui/material/Grid";
+import HomeIcon from '@mui/icons-material/Home';
 
-import API from "../../helper/apiClient";
+//Router
+import { Link, Route, useLocation } from "wouter";
 
 //Components
+import InvestmentDetail from "../../components/InvestmentDetail";
 import Investments from "../../components/Investments";
 import Summary from "../../components/Summary";
-import InvestmentDetail from "../../components/InvestmentDetail";
+import API from "../../helper/apiClient";
 
 const Dashboard = () => {
   const [investments, setInvestments] = useState([]);
   const [savingAccount, setSavingAccount] = useState([]);
+  const [location] = useLocation();
 
   const searchInvestments = async () => {
     API.get("/investment?currentQuotes=true").then((res) => {
@@ -54,6 +50,13 @@ const Dashboard = () => {
               Show Me My Money!
             </Typography>
             <Box sx={{ flexGrow: 1, display: "flex" }} >
+              {location !== '/' && (
+                <Link to='/'>
+                  <Button variant="contained" startIcon={<HomeIcon />} >
+                    Return
+                  </Button>
+               </Link>
+              )}
             </Box>
             <Box sx={{ flexGrow: 0 }}>
               <PaymentsIcon />

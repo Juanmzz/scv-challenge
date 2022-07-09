@@ -1,52 +1,86 @@
 import {
-  Button,
-  Card,
+  Box, Card,
   CardActions,
-  CardContent,
-  Typography,
-  CardHeader,
-  Stack,
-  Paper,
+  CardContent, CardHeader, Container, LinearProgress, Paper, Stack, Typography
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
+import React, { useEffect, useState } from "react";
+import API from "../helper/apiClient";
+import { capitalizeFirst } from "../helper/utils";
+import OperationCard from "./operationCard";
 
 const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#f7f7f7",
   ...theme.typography.body2,
   padding: theme.spacing(1),
-  textAlign: "center",
+  textAlign: "left",
+  fontSize: "1.2rem",
   color: theme.palette.text.secondary,
 }));
 
-const InvestmentDetail = () => {
-  return (
-    <Card sx={{ minWidth: 275 }}>
-      <CardHeader>
-        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-          Values
-        </Typography>
-      </CardHeader>
-      <CardContent>
-        <Stack spacing={2}>
-          <Item>Item 1</Item>
-          <Item>Item 2</Item>
-          <Item>Item 3</Item>
-        </Stack>
-        {/* <Typography variant="h5" component="div">
-                    test
-            </Typography>
-            <Typography sx={{ mb: 1.5 }} color="text.secondary">
-              adjective
-            </Typography>
-            <Typography variant="body2">
-              well meaning and kindly.
-              <br />
-              {'"a benevolent smile"'}
-            </Typography> */}
-      </CardContent>
-      <CardActions></CardActions>
-    </Card>
-  );
+const InvestmentDetail = ({ params }) => {
+  const { investmentId } = params;
+  const [inv, setInvestment] = useState(null);
+
+
+  const getCurrentValue = () => {
+    return inv.quantity * inv.currentQuote;
+  };
+
+  useEffect(() => {
+    API.get("/investment/" + investmentId).then((res) => {
+      setInvestment(res.data);
+    });
+  }, [investmentId]);
+
+  if (!inv) {
+    return (
+      <Box m={10} sx={{ alignItems: 'center'  }}>
+         <LinearProgress />
+      </Box>
+    ); 
+  } else {
+    return (
+      <Box m={2} pt={3}>
+        <Container>
+          <Typography
+            variant="h3"
+            color="text.secondary"
+            align="center"
+            gutterBottom
+          >
+            {inv && capitalizeFirst(inv.type) + " " + inv.name}
+          </Typography>
+          <Card sx={{ minWidth: 275 }}>
+            <CardHeader>
+              <Typography
+                sx={{ fontSize: 14 }}
+                color="text.secondary"
+                gutterBottom
+              >
+                Values
+              </Typography>
+            </CardHeader>
+            <CardContent>
+              <Stack spacing={2}>
+                <Item >Quantitiy: {`${inv.quantity} Units`}</Item>
+                <Item>
+                  Quote: {`${inv.currentQuote} / Unit`} 
+                </Item>
+                <Item>Current Value: {getCurrentValue()}</Item>
+              </Stack>
+            </CardContent>
+            <CardActions></CardActions>
+          </Card>
+          <Box mt={5} sx={{ alignItems: 'center'  }}>
+          <OperationCard mode='buy' investment={inv}></OperationCard>
+          <OperationCard mode='sell' investment={inv} ></OperationCard>
+         </Box>
+       
+        </Container>
+      </Box>
+    );
+  }
 };
 
 export default InvestmentDetail;
