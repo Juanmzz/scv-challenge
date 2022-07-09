@@ -1,4 +1,8 @@
 import React, { Fragment, useEffect, useState } from "react";
+
+//Router
+import {Link, Route} from "wouter";
+
 //Material
 import Container from "@mui/material/Container";
 import AppBar from "@mui/material/AppBar";
@@ -13,20 +17,21 @@ import API from "../../helper/apiClient";
 //Components
 import Investments from "../../components/Investments";
 import Summary from "../../components/Summary";
+import InvestmentDetail from "../../components/InvestmentDetail";
 
 const Dashboard = () => {
   const [investments, setInvestments] = useState([]);
   const [savingAccount, setSavingAccount] = useState([]);
 
   const searchInvestments = async () => {
-    API.get("/investment").then((res) => {
+    API.get("/investment?currentQuotes=true").then((res) => {
       setInvestments(res.data);
     });
   };
 
   const searchSavingAccount = async () => {
     API.get("/saving-account").then((res) => {
-      setSavingAccount(res.data[0]);
+      setSavingAccount(res.data);
     });
   };
 
@@ -48,7 +53,8 @@ const Dashboard = () => {
             >
               Show Me My Money!
             </Typography>
-            <Box sx={{ flexGrow: 1, display: "flex" }} />
+            <Box sx={{ flexGrow: 1, display: "flex" }} >
+            </Box>
             <Box sx={{ flexGrow: 0 }}>
               <PaymentsIcon />
             </Box>
@@ -72,7 +78,13 @@ const Dashboard = () => {
           </Grid>
         </Grid>
         <Grid item xs={8}>
-            <Summary investments={investments} savingAccount={savingAccount}></Summary>
+
+        <Route path="/">
+          {<Summary investments={investments} savingAccount={savingAccount} /> }
+        </Route>
+        {/* <Route component={Summary({investments,savingAccount}) } path="/"/> */}
+        <Route component={InvestmentDetail} path="/detail/:investmentId"/> 
+
 
         </Grid>
       </Grid>
