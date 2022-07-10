@@ -15,7 +15,7 @@ import API from "../helper/apiClient";
 import { useLocation } from "wouter";
 
 const OperationCard = (props) => {
-  const [location, setLocation] = useLocation();
+  const [, setLocation] = useLocation();
   const [quantityOperation, setValue] = useState(0);
   const mode = props.mode;
   const title = props.mode.toString().toUpperCase();
@@ -29,25 +29,23 @@ const OperationCard = (props) => {
     return quantityOperation * investment.currentQuote;
   };
 
-  const doOperation = () => {
-    if (mode === "buy") {
-      API.post("/investment/buy", {
-        investmentId: investment._id,
-        quantity: quantityOperation,
-        currentQuote: investment.currentQuote,
-      }).then((res) => {
-        alert(res.data.message);
-      });
-    } else if (mode === "sell") {
-      API.post("/investment/sell", {
-        investmentId: investment._id,
-        quantity: quantityOperation,
-        currentQuote: investment.currentQuote,
-      }).then((res) => {
-        alert(res.data.message);
-      });
-    }
+  const backToDashboard = () => {
     setLocation("/");
+  }
+
+  const doOperation = () => {
+      const url = "/investment/" + mode;
+
+      API.post(url, {
+        investmentId: investment._id,
+        quantity: quantityOperation,
+        currentQuote: investment.currentQuote,
+      }).then((res) => {
+        alert(res.data.message);
+        backToDashboard();
+      });
+    
+ 
   };
 
   return (

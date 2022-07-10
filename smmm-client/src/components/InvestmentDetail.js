@@ -1,7 +1,14 @@
 import {
-  Box, Card,
+  Box,
+  Card,
   CardActions,
-  CardContent, CardHeader, Container, LinearProgress, Paper, Stack, Typography
+  CardContent,
+  CardHeader,
+  Container,
+  LinearProgress,
+  Paper,
+  Stack,
+  Typography,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import React, { useEffect, useState } from "react";
@@ -22,7 +29,6 @@ const InvestmentDetail = ({ params }) => {
   const { investmentId } = params;
   const [inv, setInvestment] = useState(null);
 
-
   const getCurrentValue = () => {
     return inv.quantity * inv.currentQuote;
   };
@@ -35,10 +41,10 @@ const InvestmentDetail = ({ params }) => {
 
   if (!inv) {
     return (
-      <Box m={10} sx={{ alignItems: 'center'  }}>
-         <LinearProgress />
+      <Box m={10} sx={{ alignItems: "center" }}>
+        <LinearProgress />
       </Box>
-    ); 
+    );
   } else {
     return (
       <Box m={2} pt={3}>
@@ -63,20 +69,17 @@ const InvestmentDetail = ({ params }) => {
             </CardHeader>
             <CardContent>
               <Stack spacing={2}>
-                <Item >Quantitiy: {`${inv.quantity} Units`}</Item>
-                <Item>
-                  Quote: {`${inv.currentQuote} / Unit`} 
-                </Item>
+                <Item>Quantitiy: {`${inv.quantity} Units`}</Item>
+                <Item>Quote: {`${inv.currentQuote} / Unit`}</Item>
                 <Item>Current Value: {getCurrentValue()}</Item>
               </Stack>
             </CardContent>
             <CardActions></CardActions>
           </Card>
-          <Box mt={5} sx={{ alignItems: 'center'  }}>
-          <OperationCard mode='buy' investment={inv}></OperationCard>
-          <OperationCard mode='sell' investment={inv} ></OperationCard>
-         </Box>
-       
+          <Box mt={5} sx={{ alignItems: "center" }}>
+            <OperationCard mode="buy" investment={inv}></OperationCard>
+            <OperationCard mode="sell" investment={inv}></OperationCard>
+          </Box>
         </Container>
       </Box>
     );

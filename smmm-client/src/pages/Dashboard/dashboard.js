@@ -1,9 +1,17 @@
 import React, { Fragment, useEffect, useState } from "react";
 
 //Material
-import { AppBar, Box, Container, Grid, Toolbar, Typography, Button } from "@mui/material";
+import {
+  AppBar,
+  Box,
+  Container,
+  Grid,
+  Toolbar,
+  Typography,
+  Button,
+} from "@mui/material";
 import PaymentsIcon from "@mui/icons-material/Payments";
-import HomeIcon from '@mui/icons-material/Home';
+import HomeIcon from "@mui/icons-material/Home";
 
 //Router
 import { Link, Route, useLocation } from "wouter";
@@ -18,6 +26,7 @@ const Dashboard = () => {
   const [investments, setInvestments] = useState([]);
   const [savingAccount, setSavingAccount] = useState([]);
   const [location] = useLocation();
+
 
   const searchInvestments = async () => {
     API.get("/investment?currentQuotes=true").then((res) => {
@@ -35,6 +44,7 @@ const Dashboard = () => {
     searchInvestments();
     searchSavingAccount();
   }, []);
+
   return (
     <Fragment>
       <AppBar position="static">
@@ -49,13 +59,13 @@ const Dashboard = () => {
             >
               Show Me My Money!
             </Typography>
-            <Box sx={{ flexGrow: 1, display: "flex" }} >
-              {location !== '/' && (
-                <Link to='/'>
-                  <Button variant="contained" startIcon={<HomeIcon />} >
+            <Box sx={{ flexGrow: 1, display: "flex" }}>
+              {location !== "/" && (
+                <Link to="/">
+                  <Button variant="contained" startIcon={<HomeIcon />}>
                     Return
                   </Button>
-               </Link>
+                </Link>
               )}
             </Box>
             <Box sx={{ flexGrow: 0 }}>
@@ -81,14 +91,16 @@ const Dashboard = () => {
           </Grid>
         </Grid>
         <Grid item xs={8}>
-
-        <Route path="/">
-          {<Summary investments={investments} savingAccount={savingAccount} /> }
-        </Route>
-        {/* <Route component={Summary({investments,savingAccount}) } path="/"/> */}
-        <Route component={InvestmentDetail} path="/detail/:investmentId"/> 
-
-
+          <Route path="/">
+            {
+              <Summary
+                investments={investments}
+                savingAccount={savingAccount}
+              />
+            }
+          </Route>
+          <Route component={InvestmentDetail} path="/detail/:investmentId"/> 
+          
         </Grid>
       </Grid>
     </Fragment>
