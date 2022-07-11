@@ -47,7 +47,6 @@ const Summary = ({ investments, savingAccount }) => {
   }
 
   const getChartLabels = () => {
-    // return myInvesments.map( x => capitalizeFirst(x.type) + " " + x.name);
     const investmentNames = myInvesments.map(x => x.type + ' ' + x.name);
     const arrLabes = ['Saving Account', ...investmentNames]
     return arrLabes;
