@@ -1,23 +1,15 @@
-import {
-  Avatar,
-  Box,
-  Card,
-  CardContent,
-  Grid,
-  Typography,
-  FormControl,
-  InputLabel,
-  InputAdornment,
-  OutlinedInput,
-  Button,
-} from "@mui/material";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
-import { useState, useContext } from "react";
-import API from "../helper/apiClient";
+import {
+  Avatar,
+  Box, Button, Card,
+  CardContent, FormControl, Grid, InputLabel, OutlinedInput, Typography
+} from "@mui/material";
+import { useContext, useState } from "react";
 import { useLocation } from "wouter";
-import { DashboardContext } from "../pages/Dashboard/dashboard";
+import API from "../helper/apiClient";
 import { formatNumber } from "../helper/utils";
+import { DashboardContext } from "../pages/Dashboard/dashboard";
 
 const OperationCard = (props) => {
   const [, setLocation] = useLocation();
@@ -40,7 +32,6 @@ const OperationCard = (props) => {
 
     setLocation("/");
     setRefreshData(!refreshData);
-    // props.handleRefresh(true);
   }
 
   const doOperation = () => {
@@ -93,15 +84,14 @@ const OperationCard = (props) => {
               <Grid item xs={8}>
       
                 <FormControl fullWidth sx={{ m: 1 }}>
-                  <InputLabel htmlFor="outlined-adornment-amount">Amount</InputLabel>
+                  <InputLabel htmlFor="outlined-adornment-amount">Units</InputLabel>
 
                   <OutlinedInput
                     id="outlined-adornment-amount"
                     type='number'
                     value={quantityOperation}
                     onChange={handleQuantityChange}
-                    startAdornment={<InputAdornment position="start">$</InputAdornment>}
-                    label="Amount"
+                    label="Units"
                   />
                 </FormControl>
                 <Typography color="textPrimary" variant="h4">

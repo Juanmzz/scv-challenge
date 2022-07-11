@@ -126,8 +126,8 @@ exports.buy = async (req, res, next) => {
 
     const totalToBuy = quantityToBuy * currentQuote;
 
-    if (quantityToBuy < 0) {
-      const error = new Error('Invalid quantity!! ')
+    if (quantityToBuy <= 0) {
+      const error = new Error('Invalid quantity to buy!! ')
       error.statusCode = 422;
       throw error;
     }
@@ -171,8 +171,8 @@ exports.sell = async (req, res, next) => {
 
     const totalToSell = quantityToSell * currentQuote;
 
-    if (quantityToSell < 0) {
-      const error = new Error('Invalid quantity!! ')
+    if (quantityToSell <= 0) {
+      const error = new Error('Invalid quantity to sell!! ')
       error.statusCode = 422;
       throw error;
     }
