@@ -3,6 +3,7 @@ const Quote = require("../models/quote");
 const SavingAccount = require("../models/saving-account");
 
 
+const moment = require('moment');
 const setCurrentQuotes = async (investments) => {
   const invesmentsIds = investments.map((i) => i._id);
   //find investments quotes order desc by date
@@ -24,6 +25,36 @@ const setCurrentQuotes = async (investments) => {
 
   return investments;
 };
+
+const setQuotesAtDate = async (investments,quoteAtDate) => {
+  const invesmentsIds = investments.map((i) => i._id);
+
+  //find investments quotes by date
+   const quotes = await Quote.find(
+     {
+        investment: { $in: invesmentsIds },
+        date:{
+          $gte: moment(quoteAtDate).startOf('day').toDate(),
+          $lte: moment(quoteAtDate).endOf('day').toDate()
+        }
+     });
+
+    investments.forEach((i) => {
+    // get quote of the date
+    const dateQuote = quotes.find((x) => {
+      return x.investment.equals(i._id);
+    });
+
+    // get current value from the date quote
+    const currentQuote = dateQuote ? dateQuote.value : 0;
+
+    i.currentQuote = currentQuote;
+  });
+
+  const invesments = (investments.filter( x => x.currentQuote > 0));
+  return (invesments);
+};
+
 
 exports.getDetail = async (req, res, next) => {
 
@@ -57,14 +88,22 @@ exports.getDetail = async (req, res, next) => {
 
 exports.getAll = async (req, res, next) => {
   try {
+
     const currentQuotes = req.query?.currentQuotes
-      ? req.query?.currentQuotes === "true"
-      : false
-      ;
-    const investments = await Investment.find();
+    ? req.query?.currentQuotes === "true"
+    : false;
+    
+    const quoteAtDate = req.query?.byQuoteDate
+
+    let investments = await Investment.find();
+
 
     if (currentQuotes == true) {
-      await setCurrentQuotes(investments);
+      investments = await setCurrentQuotes(investments);
+    }
+
+    if (quoteAtDate) {
+      investments =  await setQuotesAtDate(investments, quoteAtDate);
     }
 
     res.status(200).json(investments);
