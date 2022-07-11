@@ -1,0 +1,21 @@
+{
+    "development": {
+        "db": {
+            
+            "connection_string": "mongodb+srv://scvUser:challenge1234@cluster0.jir5y.mongodb.net/?retryWrites=true&w=majority"
+        },
+        "server": {
+            "host": "http://localhost",
+            "port": "8080"
+        }
+    },
+    "production": {
+        "db": {
+            "connection_string": ""
+        },
+        "server": {
+            "host": "",
+            "port": ""
+        }
+    }
+}

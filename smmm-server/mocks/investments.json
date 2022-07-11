@@ -1,0 +1,32 @@
+[
+    {
+        "name": "Coca Cola",
+        "type": "stock",
+        "quantity": 10
+    },
+    {
+        "name": "A23",
+        "type": "bond",
+        "quantity": 0
+    },
+    {
+        "name": "A 25",
+        "type": "bond",
+        "quantity": 20
+    },
+    {
+        "name": "Google",
+        "type": "stock",
+        "quantity": 0
+    },
+    {
+        "name": "Facebook",
+        "type": "stock",
+        "quantity": 0
+    },
+    {
+        "name": "B 30",
+        "type": "bond",
+        "quantity": 0
+    }
+]

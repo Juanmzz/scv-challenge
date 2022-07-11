@@ -1,0 +1,22 @@
+{
+  "name": "smmm-server",
+  "version": "1.0.0",
+  "description": "Show me my money server app (NodeJS/Express)",
+  "main": "app.js",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.1",
+    "moment": "^2.29.4",
+    "mongoose": "^6.4.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js",
+    "debug": "nodemon --inspect app.js"
+  },
+  "author": "JIM",
+  "license": "ISC"
+}

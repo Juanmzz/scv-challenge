@@ -1,0 +1,285 @@
+{
+	"info": {
+		"_postman_id": "0fe73200-1093-4b21-8370-4cf86640cd5d",
+		"name": "SCVChallenge",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "investment GET",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/investment",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"investment"
+					]
+				},
+				"description": "\r\n"
+			},
+			"response": []
+		},
+		{
+			"name": "investment CurrentQuotes GET",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/investment?currentQuotes=true",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"investment"
+					],
+					"query": [
+						{
+							"key": "currentQuotes",
+							"value": "true"
+						}
+					]
+				},
+				"description": "\r\n"
+			},
+			"response": []
+		},
+		{
+			"name": "investment by Quote Date GET",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/investment?byQuoteDate=2022-07-11",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"investment"
+					],
+					"query": [
+						{
+							"key": "byQuoteDate",
+							"value": "2022-07-11"
+						}
+					]
+				},
+				"description": "\r\n"
+			},
+			"response": []
+		},
+		{
+			"name": "investment Detail GET",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/investment/62c91c477468e30a761a9e32",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"investment",
+						"62c91c477468e30a761a9e32"
+					]
+				},
+				"description": "\r\n"
+			},
+			"response": []
+		},
+		{
+			"name": "Investment POST",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n        \"name\": \"Coca Cola\",\r\n        \"type\": \"stock\",\r\n        \"quantity\": 10\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/investment",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"investment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Investment BUY POST",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n        \"investmentId\": \"62c91c477468e30a761a9e32\",\r\n        \"quantity\": 10,\r\n        \"currentQuote\": 50\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/investment/buy",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"investment",
+						"buy"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Investment SELL POST",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n        \"investmentId\": \"62c91c477468e30a761a9e32\",\r\n        \"quantity\": 40,\r\n        \"currentQuote\": 50\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/investment/sell",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"investment",
+						"sell"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Saving Account GET",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/saving-account",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"saving-account"
+					]
+				},
+				"description": "\r\n"
+			},
+			"response": []
+		},
+		{
+			"name": "Saving Account PUT",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"value\": 5000\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/saving-account",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"saving-account"
+					]
+				},
+				"description": "\r\n"
+			},
+			"response": []
+		},
+		{
+			"name": "quote GET",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/quote",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"quote"
+					]
+				},
+				"description": "\r\n"
+			},
+			"response": []
+		},
+		{
+			"name": "quote POST",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"investmentId\": \"62cb5dba5326d9a36b262bc5\",\r\n     \"value\": 160\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/quote",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"quote"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
