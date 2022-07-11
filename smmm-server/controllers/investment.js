@@ -29,21 +29,27 @@ exports.getDetail = async (req, res, next) => {
   try {
 
     const investmentId = req.params.investmentId;
-    const investment =   await Investment.findById(investmentId);
+    const investment = await Investment.findById(investmentId)
+      .catch(err => {
+        const error = new Error('Investment not found!')
+        error.statusCode = 404;
+        throw error;
+      });
 
     const lastQuotes = await Quote.find({
       investment: investmentId,
     }).sort({ date: -1 });
 
-    const currentQuote = lastQuotes &&  lastQuotes.length > 0 ? lastQuotes[0].value : 0;
+    const currentQuote = lastQuotes && lastQuotes.length > 0 ? lastQuotes[0].value : 0;
 
     investment.currentQuote = currentQuote;
- 
+
     res.status(200).json(investment);
   } catch (err) {
     if (!err.statusCode) {
       err.statusCode = 500;
     }
+
     next(err);
   }
 };
@@ -71,30 +77,30 @@ exports.getAll = async (req, res, next) => {
 
 exports.buy = async (req, res, next) => {
   try {
-       const invesmentId = req.body.investmentId;
-       const quantityToBuy = req.body.quantity;
-       const currentQuote = req.body.currentQuote;
+    const invesmentId = req.body.investmentId;
+    const quantityToBuy = req.body.quantity;
+    const currentQuote = req.body.currentQuote;
 
-       const savingAccount = await SavingAccount.findOne();
-       const investment =  await Investment.findById(invesmentId);
+    const savingAccount = await SavingAccount.findOne();
+    const investment = await Investment.findById(invesmentId);
 
-       const totalToBuy = quantityToBuy * currentQuote;
+    const totalToBuy = quantityToBuy * currentQuote;
 
-       if(totalToBuy > savingAccount.value){
-          const error = new Error('Limit of saving account money exceed!!')
-          error.statusCode = 422;
-          throw error;
-       }
+    if (totalToBuy > savingAccount.value) {
+      const error = new Error('Limit of saving account money exceed!!')
+      error.statusCode = 422;
+      throw error;
+    }
 
-       savingAccount.value -= totalToBuy;
-       const result =  await savingAccount.save();
- 
-       if (result) {
-       investment.quantity += quantityToBuy;
-       await investment.save();
-      }
+    savingAccount.value -= totalToBuy;
+    const result = await savingAccount.save();
 
-      res.status(200).json({ message: 'Buy made correctly!' });
+    if (result) {
+      investment.quantity += quantityToBuy;
+      await investment.save();
+    }
+
+    res.status(200).json({ message: 'Buy done!' });
 
 
   } catch (err) {
@@ -113,27 +119,27 @@ exports.sell = async (req, res, next) => {
     const currentQuote = req.body.currentQuote;
 
     const savingAccount = await SavingAccount.findOne();
-    const investment =  await Investment.findById(invesmentId);
+    const investment = await Investment.findById(invesmentId);
 
     const totalToSell = quantityToSell * currentQuote;
 
-    if(investment.quantity < quantityToSell){
-       const error = new Error('Limit Exceed! You dont have that quantity to sell :( ')
-       error.statusCode = 422;
-       throw error;
+    if (investment.quantity < quantityToSell) {
+      const error = new Error('Limit Exceed! You dont have that quantity to sell :( ')
+      error.statusCode = 422;
+      throw error;
     }
 
     savingAccount.value += totalToSell;
     const result = await savingAccount.save();
 
-    if(result){
-    investment.quantity -= quantityToSell;
-    await investment.save();
-  }
+    if (result) {
+      investment.quantity -= quantityToSell;
+      await investment.save();
+    }
 
 
 
-   res.status(200).json({ message: 'Sell made correctly!' });
+    res.status(200).json({ message: 'Sell done!' });
   } catch (err) {
     if (!err.statusCode) {
       err.statusCode = 500;

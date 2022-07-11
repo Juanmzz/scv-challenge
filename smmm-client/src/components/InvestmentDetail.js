@@ -14,7 +14,9 @@ import { styled } from "@mui/material/styles";
 import React, { useEffect, useState } from "react";
 import API from "../helper/apiClient";
 import { capitalizeFirst } from "../helper/utils";
-import OperationCard from "./operationCard";
+import OperationCard from "./OperationCard";
+import { useLocation } from "wouter";
+
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#f7f7f7",
@@ -25,19 +27,25 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-const InvestmentDetail = ({ params }) => {
-  const { investmentId } = params;
+const InvestmentDetail = ({ investmentId, doRefresh }) => {
+
   const [inv, setInvestment] = useState(null);
+  const [, setLocation] = useLocation();
 
   const getCurrentValue = () => {
     return inv.quantity * inv.currentQuote;
   };
 
+
   useEffect(() => {
+
     API.get("/investment/" + investmentId).then((res) => {
       setInvestment(res.data);
+    }).catch((err) => { 
+      alert(err.response.data.message);
+      setLocation('/');
     });
-  }, [investmentId]);
+  }, [investmentId, setLocation]);
 
   if (!inv) {
     return (
@@ -77,8 +85,8 @@ const InvestmentDetail = ({ params }) => {
             <CardActions></CardActions>
           </Card>
           <Box mt={5} sx={{ alignItems: "center" }}>
-            <OperationCard mode="buy" investment={inv}></OperationCard>
-            <OperationCard mode="sell" investment={inv}></OperationCard>
+            <OperationCard mode="buy" investment={inv} ></OperationCard>
+            <OperationCard mode="sell" investment={inv} ></OperationCard>
           </Box>
         </Container>
       </Box>

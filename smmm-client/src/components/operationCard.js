@@ -5,24 +5,29 @@ import {
   CardContent,
   Grid,
   Typography,
-  TextField,
+  FormControl,
+  InputLabel,
+  InputAdornment,
+  OutlinedInput,
   Button,
 } from "@mui/material";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import API from "../helper/apiClient";
 import { useLocation } from "wouter";
+import { DashboardContext } from "../pages/Dashboard/dashboard";
 
 const OperationCard = (props) => {
   const [, setLocation] = useLocation();
-  const [quantityOperation, setValue] = useState(0);
+  const [quantityOperation, setQuantityOperation] = useState(0);
   const mode = props.mode;
   const title = props.mode.toString().toUpperCase();
   const investment = props.investment;
+  const { refreshData, setRefreshData } = useContext(DashboardContext);
 
-  const handleChange = (event) => {
-    setValue(event.target.value);
+  const handleQuantityChange = (event) => {
+    setQuantityOperation(event.target.value);
   };
 
   const calcuteValue = () => {
@@ -30,22 +35,25 @@ const OperationCard = (props) => {
   };
 
   const backToDashboard = () => {
+
     setLocation("/");
+    setRefreshData(!refreshData);
+    // props.handleRefresh(true);
   }
 
   const doOperation = () => {
-      const url = "/investment/" + mode;
+    const url = "/investment/" + mode;
 
-      API.post(url, {
-        investmentId: investment._id,
-        quantity: quantityOperation,
-        currentQuote: investment.currentQuote,
-      }).then((res) => {
-        alert(res.data.message);
-        backToDashboard();
-      });
-    
- 
+    API.post(url, {
+      investmentId: investment._id,
+      quantity: +quantityOperation,
+      currentQuote: investment.currentQuote,
+    }).then((res) => {
+      alert(res.data.message);
+      backToDashboard();
+    });
+
+
   };
 
   return (
@@ -80,19 +88,32 @@ const OperationCard = (props) => {
             }}
           >
             <Grid container spacing={2}>
-              <Grid item xs={5}>
-                <TextField
+              <Grid item xs={8}>
+                {/* <TextField
                   id="outlined-basic"
                   label="Amount"
                   variant="outlined"
                   value={quantityOperation}
                   onChange={handleChange}
-                />
-              </Grid>
-              <Grid item xs={4}>
+                /> */}
+
+                <FormControl fullWidth sx={{ m: 1 }}>
+                  <InputLabel htmlFor="outlined-adornment-amount">Amount</InputLabel>
+                  <OutlinedInput
+                    id="outlined-adornment-amount"
+                    type='number'
+                    value={quantityOperation}
+                    onChange={handleQuantityChange}
+                    startAdornment={<InputAdornment position="start">$</InputAdornment>}
+                    label="Amount"
+                  />
+                </FormControl>
                 <Typography color="textPrimary" variant="h4">
                   $ {calcuteValue()}
                 </Typography>
+              </Grid>
+              <Grid item xs={4}>
+            
               </Grid>
               <Grid item xs={3}>
                 <Button
