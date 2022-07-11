@@ -38,5 +38,25 @@
         "investment": 4,
         "value": 40,
         "date": "07-07-2022"
+    },
+    {
+        "investment": 5,
+        "value": 100,
+        "date": "07-08-2022"
+    },
+    {
+        "investment": 5,
+        "value": 120,
+        "date": "07-07-2022"
+    },
+    {
+        "investment": 6,
+        "value": 30,
+        "date": "07-08-2022"
+    },
+    {
+        "investment": 6,
+        "value": 50,
+        "date": "07-07-2022"
     }
 ]

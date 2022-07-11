@@ -18,5 +18,15 @@
         "name": "Google",
         "type": "stock",
         "quantity": 0
+    },
+    {
+        "name": "Facebook",
+        "type": "stock",
+        "quantity": 0
+    },
+    {
+        "name": "B 30",
+        "type": "bond",
+        "quantity": 0
     }
 ]
