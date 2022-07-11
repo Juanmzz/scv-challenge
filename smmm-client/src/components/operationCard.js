@@ -17,6 +17,7 @@ import { useState, useContext } from "react";
 import API from "../helper/apiClient";
 import { useLocation } from "wouter";
 import { DashboardContext } from "../pages/Dashboard/dashboard";
+import { formatNumber } from "../helper/utils";
 
 const OperationCard = (props) => {
   const [, setLocation] = useLocation();
@@ -26,8 +27,9 @@ const OperationCard = (props) => {
   const investment = props.investment;
   const { refreshData, setRefreshData } = useContext(DashboardContext);
 
-  const handleQuantityChange = (event) => {
-    setQuantityOperation(event.target.value);
+  const handleQuantityChange = (e) => {
+     
+    setQuantityOperation(e.target.value);
   };
 
   const calcuteValue = () => {
@@ -51,7 +53,7 @@ const OperationCard = (props) => {
     }).then((res) => {
       alert(res.data.message);
       backToDashboard();
-    });
+    }).catch(err => {alert(err.response.data.message)} );
 
 
   };
@@ -89,16 +91,10 @@ const OperationCard = (props) => {
           >
             <Grid container spacing={2}>
               <Grid item xs={8}>
-                {/* <TextField
-                  id="outlined-basic"
-                  label="Amount"
-                  variant="outlined"
-                  value={quantityOperation}
-                  onChange={handleChange}
-                /> */}
-
+      
                 <FormControl fullWidth sx={{ m: 1 }}>
                   <InputLabel htmlFor="outlined-adornment-amount">Amount</InputLabel>
+
                   <OutlinedInput
                     id="outlined-adornment-amount"
                     type='number'
@@ -109,13 +105,12 @@ const OperationCard = (props) => {
                   />
                 </FormControl>
                 <Typography color="textPrimary" variant="h4">
-                  $ {calcuteValue()}
+                  {formatNumber(calcuteValue())}
                 </Typography>
               </Grid>
-              <Grid item xs={4}>
-            
-              </Grid>
-              <Grid item xs={3}>
+           
+              <Grid container spacing={2} justifyContent="flex-end">
+
                 <Button
                   variant="contained"
                   onClick={() => {
@@ -125,6 +120,7 @@ const OperationCard = (props) => {
                   {" "}
                   {title}
                 </Button>
+
               </Grid>
             </Grid>
           </Box>

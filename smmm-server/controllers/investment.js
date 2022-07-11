@@ -2,6 +2,7 @@ const Investment = require("../models/investment");
 const Quote = require("../models/quote");
 const SavingAccount = require("../models/saving-account");
 
+
 const setCurrentQuotes = async (investments) => {
   const invesmentsIds = investments.map((i) => i._id);
   //find investments quotes order desc by date
@@ -86,11 +87,19 @@ exports.buy = async (req, res, next) => {
 
     const totalToBuy = quantityToBuy * currentQuote;
 
+    if (quantityToBuy < 0) {
+      const error = new Error('Invalid quantity!! ')
+      error.statusCode = 422;
+      throw error;
+    }
+
     if (totalToBuy > savingAccount.value) {
       const error = new Error('Limit of saving account money exceed!!')
       error.statusCode = 422;
       throw error;
     }
+
+
 
     savingAccount.value -= totalToBuy;
     const result = await savingAccount.save();
@@ -122,6 +131,12 @@ exports.sell = async (req, res, next) => {
     const investment = await Investment.findById(invesmentId);
 
     const totalToSell = quantityToSell * currentQuote;
+
+    if (quantityToSell < 0) {
+      const error = new Error('Invalid quantity!! ')
+      error.statusCode = 422;
+      throw error;
+    }
 
     if (investment.quantity < quantityToSell) {
       const error = new Error('Limit Exceed! You dont have that quantity to sell :( ')

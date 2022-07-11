@@ -23,7 +23,7 @@ const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
   padding: theme.spacing(1),
   textAlign: "left",
-  fontSize: "1.2rem",
+  fontSize: "1rem",
   color: theme.palette.text.secondary,
 }));
 
@@ -58,7 +58,7 @@ const InvestmentDetail = ({ investmentId, doRefresh }) => {
       <Box m={2} pt={3}>
         <Container>
           <Typography
-            variant="h3"
+            variant="h4"
             color="text.secondary"
             align="center"
             gutterBottom

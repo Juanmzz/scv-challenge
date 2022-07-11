@@ -1,20 +1,15 @@
-import React, { Fragment, useEffect, useState, createContext } from "react";
+import { createContext, Fragment, useEffect, useState } from "react";
 
 //Material
-import {
-  AppBar,
-  Box,
-  Container,
-  Grid,
-  Toolbar,
-  Typography,
-  Button,
-} from "@mui/material";
 import PaymentsIcon from "@mui/icons-material/Payments";
-import HomeIcon from "@mui/icons-material/Home";
+import {
+  AppBar, Button, Container,
+  Grid,
+  Toolbar
+} from "@mui/material";
 
 //Router
-import { Link, Route, useLocation } from "wouter";
+import { Link, Route } from "wouter";
 
 //Components
 import InvestmentDetail from "../../components/InvestmentDetail";
@@ -27,10 +22,9 @@ export const DashboardContext = createContext();
 const Dashboard = () => {
   const [investments, setInvestments] = useState([]);
   const [savingAccount, setSavingAccount] = useState([]);
-  const [location] = useLocation();
   const [refreshData, setRefreshData] = useState(false);
 
-  const contextValues = {refreshData, setRefreshData }
+  const contextValues = { refreshData, setRefreshData }
 
   const searchInvestments = async () => {
     API.get("/investment?currentQuotes=true").then((res) => {
@@ -58,27 +52,13 @@ const Dashboard = () => {
         <AppBar position="static">
           <Container maxWidth="xl">
             <Toolbar disableGutters>
-              <Typography
-                variant="h6"
-                noWrap
-                component="div"
-                sx={{ mr: 2 }}
-                justify="center"
-              >
-                Show Me My Money!
-              </Typography>
-              <Box sx={{ flexGrow: 1, display: "flex" }}>
-                {location !== "/" && (
-                  <Link to="/">
-                    <Button variant="contained" startIcon={<HomeIcon />}>
-                      Return
-                    </Button>
-                  </Link>
-                )}
-              </Box>
-              <Box sx={{ flexGrow: 0 }}>
-                <PaymentsIcon />
-              </Box>
+    
+                <Link to="/">
+                  <Button variant="contained" startIcon={<PaymentsIcon />}>
+                    Show Me My Money!
+                  </Button>
+                </Link>
+           
             </Toolbar>
           </Container>
         </AppBar>
@@ -108,7 +88,7 @@ const Dashboard = () => {
               }
             </Route>
             <Route path="/detail/:investmentId">
-              {params => <InvestmentDetail investmentId={params.investmentId}  />}
+              {params => <InvestmentDetail investmentId={params.investmentId} />}
             </Route>
 
           </Grid>
