@@ -1,4 +1,5 @@
 const Quote = require("../models/quote");
+const Investment = require("../models/investment");
 
 exports.getAll = async (req, res, next) => {
   try {
@@ -18,6 +19,13 @@ exports.post = async (req, res, next) => {
     let date = new Date();
     const dateFormatted = date.toISOString().split("T")[0];
 
+
+    const investment = await Investment.findById(investmentId).catch((err) => {
+      const error = new Error("Investment not found!");
+      error.statusCode = 404;
+      throw error;
+    });
+    
     let quote = await Quote.findOne({ date: dateFormatted });
 
     //if the qoute exist for the day of the date, it will be update
